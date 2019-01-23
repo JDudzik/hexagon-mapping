@@ -1,0 +1,31 @@
+{
+  "extends": "Custom ESLint Config: master",
+
+  "extends": "react-app",
+  "rules": {
+    "semi": "error",
+    "comma-dangle": ["error", "always-multiline"],
+    "import/newline-after-import": 0,
+    "import/no-unresolved": "error",
+    "indent": ["error", 2, {
+      "SwitchCase": 1
+    }],
+    "no-console": "warn",
+    "no-use-before-define": "error",
+    "prefer-template": "error",
+    "no-multiple-empty-lines": ["warn", {
+      "max": 2,
+      "maxEOF": 1,
+      "maxBOF": 1
+    }],
+    "react/no-multi-comp": ["warn", {
+      "ignoreStateless": true
+    }],
+    "react/jsx-sort-props": ["error", {
+      "reservedFirst": ["key", "ref"],
+      "shorthandFirst": true,
+      "ignoreCase": true,
+      "callbacksLast": true
+    }]
+  }
+}

@@ -1,0 +1,25 @@
+h1, h2, h3, h4, h5 {
+  @include full-box;
+  color: $default;
+  line-height: 140%;
+}
+
+h1 {
+  font-size: 1.188em;
+  margin-bottom: $space;
+}
+
+h2 {
+  font-size: 1.875em;
+  margin-bottom: $space;
+}
+
+h3, h4 {
+  font-size: 1.1875em;
+  margin-bottom: $minor-space;
+}
+
+h4 {
+  color: $type;
+  line-height: 120%;
+}

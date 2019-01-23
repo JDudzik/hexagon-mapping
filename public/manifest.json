@@ -1,0 +1,57 @@
+{
+  "short_name": "SlayR",
+  "name": "Slay Remake",
+  "icons-UNUSED_FOR_NOW": [
+    {
+      "src": "pwa-icons/icon-1024.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    },
+    {
+      "src": "pwa-icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "pwa-icons/icon-256.png",
+      "sizes": "256x256 144x144 152x152 167x167 180x180 195x195 192x192 196x196 228x228",
+      "type": "image/png"
+    },
+    {
+      "src": "pwa-icons/icon-128.png",
+      "sizes": "128x128 76x76 72x72 96x96 120x120",
+      "type": "image/png"
+    },
+    {
+      "src": "pwa-icons/icon-64.png",
+      "sizes": "64x64 57x57 48x48 36x36",
+      "type": "image/png"
+    },
+    {
+      "src": "pwa-icons/icon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "pwa-icons/icon-16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+
+
+    {
+      "src": "pwa-icons/icon-256.ico",
+      "sizes": "256x256",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 57x57 48x48 36x36 32x32 16x16",
+      "type": "image/x-icon"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

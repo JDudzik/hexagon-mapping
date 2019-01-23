@@ -1,0 +1,83 @@
+// BASE
+// ----------------------------------------------------------------------------------------------------
+
+// Variables
+
+// Responsive
+$large-screen: 1280px;
+$tablet: 1024px;
+$big-phone: 840px;
+$phone: 680px;
+
+// Color
+$background: #FFFFFF; // Primary background color
+$border-color: #E0F1F3;
+$brand: #489ED2;
+$callout: #6fCEC1;
+$callout-hover:  lighten($callout, 10%);
+$default: #000000;
+$error: #C46A5E;
+$error-hover: lighten($error, 2.5%);
+$link: #4a638b;
+$type: #646464;
+$type-alt: #C1C3C8;
+$foreground: #FFFFFF;
+$shadow: rgba($background, 0.1);
+
+// Space
+$base: 16px;
+$tablet-base: 16px;
+$phone-base: 16px;
+
+$space: 2rem;
+$half-space: $space / 2;
+$double-space: $space * 2;
+$triple-space: $space * 3;
+$minor-space: 1.250rem;
+$double-minor-space: $minor-space * 2;
+$micro-space: 0.750rem;
+$nano-space: $micro-space / 2;
+
+// Fonts
+$font: 'Roboto', sans-serif;
+
+// Misc
+$animate-time: 0.2s;
+$border-radius: 0.250em;
+
+// Base Imports
+@import "base/utilities";
+@import "base/resets";
+@import "base/fonts";
+
+// LAYOUT - Global Structure
+// ----------------------------------------------------------------------------------------------------
+@import "layout/global";
+@import "layout/headings";
+
+// RESPONSIVE REFERENCE
+// ----------------------------------------------------------------------------------------------------
+
+// Only Computer - No tablet or below
+// @media screen and (min-width: $tablet) {} // End Only Computer
+
+// Only Tablet & Above - No Mobile Phone
+// @media screen and (min-width: $phone) {} // End Tablet & Above
+
+// Primary Mobile - Tablet & Below
+// @media screen and (max-width: $tablet) {} // End Tablet & Below
+
+// Big Phone
+// @media screen and (max-width: $big-phone) {} // End Big Phone
+
+// Secondary Mobile - Phone & Below
+// @media screen and (max-width: $phone) {} // End Phone & Below
+
+// Tertiary Mobile - Phone & Below
+// @media screen and (max-width: $small-phone) {} // End Small Phone & Below
+
+// iPad Only
+// @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {} // End iPad Only
+
+// iPhone Only
+// @media only screen and (max-device-width: $small-phone) {} // End iPhone Only
