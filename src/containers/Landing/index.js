@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import Board from '../../components/Board';
 
 const LandingWrapper = styled.div`
   ${'' /* display: flex;
@@ -9,11 +10,13 @@ const LandingWrapper = styled.div`
   } */}
 `;
 
+
 class Landing extends Component {
   render() {
     return (
       <LandingWrapper>
         Welcome!
+        <Board />
       </LandingWrapper>
     );
   }
