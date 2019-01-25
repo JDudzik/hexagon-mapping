@@ -3,11 +3,10 @@ import styled from 'styled-components';
 import Board from '../../components/Board';
 
 const LandingWrapper = styled.div`
-  ${'' /* display: flex;
-
-  @media screen and (max-width: ${p => p.theme.phone}) {
-    flex-direction: column;
-  } */}
+  width: 3000px;
+  height: 3000px;
+  background-color: lightslategrey;
+  padding: 30px;
 `;
 
 
@@ -15,7 +14,6 @@ class Landing extends Component {
   render() {
     return (
       <LandingWrapper>
-        Welcome!
         <Board />
       </LandingWrapper>
     );

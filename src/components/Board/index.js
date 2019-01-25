@@ -16,6 +16,10 @@ const gridData = [
     {color: 'blue', topper: <div>0, 2</div>},
     {color: 'blue', topper: <div>1, 2</div>},
     {color: 'blue', topper: <div>2, 2</div>},
+  ], [
+    {color: 'green', topper: <div>0, 0</div>},
+    {color: 'green', topper: <div>1, 0</div>},
+    {color: 'green', topper: <div>2, 0</div>},
   ],
 ];
 
@@ -24,10 +28,12 @@ const buildGrid = (size) => {
   return gridData.map((xArray, yCoord) => {
     return xArray.map((hexData, xCoord) => {
       return (
-        <React.Fragment>
+        <React.Fragment key={`${yCoord}-${xCoord}`}>
           <Hexagon
             fill={hexData.color}
+            highlightedEdges={[]}
             size={size}
+            topper={hexData.topper}
             x={xCoord}
             y={yCoord}
             onClick={(x, y) => console.log(`selected: ${gridData[y][x].color}`)}
@@ -42,15 +48,14 @@ const buildGrid = (size) => {
 };
 
 const BoardWrapper = styled.div`
-  margin: 5%;
   position: relative;
 `;
 
 
 class Board extends Component {
   render() {
-
     const size = 80;
+
     return (
       <BoardWrapper>
         {buildGrid(size)}
