@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import styled from 'styled-components';
+import verboseShallowCompare from '../../utils/verboseShallowCompare';
 
 const HexagonContainer = styled.div`
   position: absolute;
@@ -8,8 +9,14 @@ const HexagonContainer = styled.div`
   pointer-events: none;
 `;
 
+const TopperWrapper = styled.div`
+  color: white;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+`;
 
-class Hexagon extends Component {
+class Hexagon extends PureComponent {
   handleClick = () => {
     const { onClick, x, y } = this.props;
     onClick(x, y);
@@ -25,7 +32,9 @@ class Hexagon extends Component {
   }
 
   render() {
-    const { size, fill, x, y } = this.props;
+    // console.log('RENDERED HEXAGON');
+
+    const { size, fill, x, y, topper } = this.props;
     const isOffsetColumn = y % 2 !== 0;
     const width = size * 2;
     const height = size / 0.57471264367;
@@ -40,6 +49,9 @@ class Hexagon extends Component {
         xPosition={xPosition}
         yPosition={yPosition}
       >
+        <TopperWrapper>
+          {topper}
+        </TopperWrapper>
         <svg
           height={height}
           version="1.1"

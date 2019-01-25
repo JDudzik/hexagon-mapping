@@ -12,7 +12,6 @@ import Loadable from 'react-loadable';
 const theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!../../assets/stylesheets/style.scss');
 
 
-// const Landing = asyncComponent(() => import("../Landing"));
 const LoadingComponent = () => (<div>Loading...</div>);
 const Landing = Loadable({
   loader: () => import('../Landing'),
