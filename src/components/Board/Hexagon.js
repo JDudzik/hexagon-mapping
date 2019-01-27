@@ -39,10 +39,10 @@ class Hexagon extends PureComponent {
     const width = size * 2;
     const height = size / 0.57471264367;
 
-    const xPosition = x * width;
+    const xPosition = x * width / 1.389995;
     const yPosition = isOffsetColumn
-      ? y * height + height / 2
-      : y * height;
+      ? y * height / 1.047275 + height / 2.09455
+      : y * height / 1.047275;
 
     // const yPosition = y * height / 2.094415;
     // const xPosition = isOffsetColumn
