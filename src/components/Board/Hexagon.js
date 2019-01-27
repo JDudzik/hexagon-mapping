@@ -13,7 +13,7 @@ const TopperWrapper = styled.div`
   color: white;
   position: absolute;
   top: 10px;
-  left: 50%;
+  left: 25%;
 `;
 
 class Hexagon extends PureComponent {
