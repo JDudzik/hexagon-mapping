@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
-import verboseShallowCompare from '../../utils/verboseShallowCompare';
+// import verboseShallowCompare from '../../utils/verboseShallowCompare';
 
 const HexagonContainer = styled.div`
   position: absolute;
@@ -35,14 +35,19 @@ class Hexagon extends PureComponent {
     // console.log('RENDERED HEXAGON');
 
     const { size, fill, x, y, topper } = this.props;
-    const isOffsetColumn = y % 2 !== 0;
+    const isOffsetColumn = x % 2 !== 0;
     const width = size * 2;
     const height = size / 0.57471264367;
 
-    const yPosition = y * height / 2.094415;
-    const xPosition = isOffsetColumn
-      ? x * width * 1.43885 + width / 1.39
-      : x * width * 1.43885;
+    const xPosition = x * width;
+    const yPosition = isOffsetColumn
+      ? y * height + height / 2
+      : y * height;
+
+    // const yPosition = y * height / 2.094415;
+    // const xPosition = isOffsetColumn
+    //   ? x * width * 1.43885 + width / 1.39
+    //   : x * width * 1.43885;
 
     return (
       <HexagonContainer
