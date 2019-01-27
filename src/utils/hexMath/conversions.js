@@ -1,14 +1,14 @@
-const axialX = (x, y) => y - (Math.floor(x / 2));
-const axialXToGrid = (axialX, axialY) => axialX + Math.floor(axialY / 2);
-const calculateCubicZ = (axialX, axialY) => (axialX / -1) - axialY;
+const axialY = (x, y) => y - (Math.floor(x / 2));
+const axialYToGrid = (x, y) => y + Math.floor(x / 2);
+const calculateCubicZ = (x, y) => (x / -1) - y;
 
-export const gridToAxial = (x, y) => ({ x: x, y: axialX(x, y)});
+export const gridToAxial = (x, y) => ({ x: x, y: axialY(x, y)});
 export const gridToCubic = (x, y) => {
   const axialCoords = gridToAxial(x, y);
   return axialToCubic(axialCoords.x, axialCoords.y);
 };
-export const axialToGrid = (axialX, axialY) => ({ x: axialXToGrid(axialX, axialY), y: axialY });
-export const axialToCubic = (axialX, axialY) => ({ x: axialX, y: axialY, z: calculateCubicZ(axialX, axialY)});
+export const axialToGrid = (x, y) => ({ x: x , y: axialYToGrid(x, y) });
+export const axialToCubic = (x, y) => ({ x: x, y: y, z: calculateCubicZ(x, y)});
 
 
 
@@ -39,8 +39,9 @@ export const swapFullToppersToAxial = (gridData, updateHexes) => {
   gridData.forEach((yArray, yIndex) => {
     yArray.forEach((hexData, xIndex) => {
       const axialCoords = gridToAxial(xIndex, yIndex);
+      const gridCoords = axialToGrid(axialCoords.x, axialCoords.y);
       hexData.topper = `
-        [${xIndex},        ${yIndex}] . . . . .
+        [${gridCoords.x},  ${gridCoords.y}] - - - - -
         [${axialCoords.x}, ${axialCoords.y}]
       `;
       newHexes.push({
