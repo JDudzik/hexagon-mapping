@@ -18,7 +18,12 @@ class GridDataContextProvider extends Component {
   /*****************************/
 
   updateHexes = (hexValues) => {
-    const gridData = this.state.gridData;
+    // Example hexValues:
+    // [{
+    //   gridCoords: {x: 1, y: 2},
+    //   hexData: {color: 'red', topper: 'Example'},
+    // }]
+    const gridData = [...this.state.gridData];
     hexValues.forEach(newHex => {
       const {gridCoords, hexData} = newHex;
       gridData[gridCoords.y][gridCoords.x] = hexData;
@@ -34,6 +39,11 @@ class GridDataContextProvider extends Component {
       gridData,
     });
   }
+
+  getHex = (gridCoords) => ({
+    gridCoords: {x: gridCoords.x, y: gridCoords.y},
+    hexData: this.state.gridData[gridCoords.y][gridCoords.x],
+  })
 
 
   /*******************/
@@ -62,6 +72,7 @@ class GridDataContextProvider extends Component {
           gridData,
           updateHexes: this.updateHexes,
           setNewBoard: this.setNewBoard,
+          getHex: this.getHex,
         }}>
           {children}
         </GridDataContext.Provider>

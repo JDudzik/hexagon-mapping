@@ -1,21 +1,19 @@
-import { gridToCubic, gridToAxial, axialToGrid } from './conversions';
-import { getCubicFromCubicAnchor } from './interactions';
+import { gridToCubic, gridToAxial, axialToGrid, cubicToGrid } from './conversions';
+import { getCubicFromCubicAnchor, neighborsT } from './interactions';
 import { getGridHexes } from './grid';
 
 export const swapFullToppersToCubic = (gridData, updateHexes) => {
   const newHexes = [];
-
   gridData.forEach((yArray, yIndex) => {
     yArray.forEach((hexData, xIndex) => {
       const cubicCoords = gridToCubic({x: xIndex, y: yIndex});
-      hexData.topper = `${cubicCoords.x - 4}, ${cubicCoords.y}, ${cubicCoords.z +4}`;
+      hexData.topper = `${cubicCoords.x}, ${cubicCoords.y}, ${cubicCoords.z}`;
       newHexes.push({
         gridCoords: {x: xIndex, y: yIndex},
         hexData: hexData,
       });
     });
   });
-
   updateHexes(newHexes);
 };
 
@@ -26,10 +24,15 @@ export const swapFullToppersWithNewOrigin = (gridData, updateHexes, anchorGridCo
     hexData.topper = `${anchoredCubicCoords.x}, ${anchoredCubicCoords.y}, ${anchoredCubicCoords.z}`;
     return hexData;
   });
-
   updateHexes(newHexes);
 };
 
+export const setNeighborsToBrown = (getHex, updateHexes, gridCoords) => {
+  const topNeighborCoords = neighborsT(gridCoords, true);
+  const topNeighbor = getHex(cubicToGrid(topNeighborCoords));
+  topNeighbor.hexData.color = 'brown';
+  updateHexes([{...topNeighbor}]);
+};
 
 // export const swapFullToppersToAxial = (gridData, updateHexes) => {
 //   const newHexes = [];

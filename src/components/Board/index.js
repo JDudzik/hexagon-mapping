@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import withGridDataContext from '../../contexts/GridDataContext/withGridDataContext';
 import styled from 'styled-components';
 import Hexagon from './Hexagon';
-import { swapFullToppersToCubic, swapFullToppersToAxial, setBasicGridToppers, swapFullToppersWithNewOrigin } from '../../utils/hexMath/debugDisplayValues';
+import { swapFullToppersToCubic, swapFullToppersWithNewOrigin, setNeighborsToBrown } from '../../utils/hexMath/debugDisplayValues';
 import { getGridHexes } from '../../utils/hexMath/grid';
 
 
@@ -130,7 +130,6 @@ const gridData = [
   ],
 ];
 
-// const logHexColor = (x, y) => console.log(`selected: ${gridData[y][x].color}`);
 const highlightedEdges = [];
 
 const buildGrid = (gridData, hexSize, handleHexClick) => getGridHexes(gridData).map(hex => (
@@ -160,8 +159,8 @@ class Board extends Component {
   }
 
   hexClicked = (gridCoords) => {
-    const { gridData, updateHexes } = this.props.gridDataContext;
-    swapFullToppersWithNewOrigin(gridData, updateHexes, gridCoords);
+    const { gridData, updateHexes, getHex } = this.props.gridDataContext;
+    setNeighborsToBrown(getHex, updateHexes, gridCoords);
   };
 
   render() {

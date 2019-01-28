@@ -10,3 +10,4 @@ export const axialToCubic = (axialCoords) => ({
   y: axialCoords.y,
   z: calculateCubicZ(axialCoords),
 });
+export const cubicToGrid = (cubicCoords) => axialToGrid(cubicCoords); // This method only exists as a mental helper. In actuallity, you can simply call "axialToGrid" even for cubic coords.

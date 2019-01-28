@@ -22,21 +22,12 @@ export const getCubicFromCubicAnchor = (anchorCubicCoords, gridCoords) => {
   };
 };
 
-
-// export const swapFullToppersToCubic = (gridData, updateHexes) => {
-//   const newHexes = [];
-//
-//   gridData.forEach((yArray, yIndex) => {
-//     yArray.forEach((hexData, xIndex) => {
-//       const cubicCoords = gridToCubic(xIndex, yIndex);
-//       hexData.topper = `${cubicCoords.x - 4}, ${cubicCoords.y}, ${cubicCoords.z +4}`;
-//       newHexes.push({
-//         x: xIndex,
-//         y: yIndex,
-//         hexData: hexData,
-//       });
-//     });
-//   });
-//
-//   updateHexes(newHexes);
-// };
+export const neighborsT = (coords, usingGridCoords = false) => {
+  let cubicCoords = coords;
+  if (usingGridCoords) { cubicCoords = gridToCubic(coords); }
+  return {
+    x: cubicCoords.x,
+    y: cubicCoords.y - 1,
+    z: cubicCoords.z + 1,
+  };
+};
