@@ -18,8 +18,8 @@ const TopperWrapper = styled.div`
 
 class Hexagon extends PureComponent {
   handleClick = () => {
-    const { onClick, x, y } = this.props;
-    onClick(x, y);
+    const { onClick, gridCoords } = this.props;
+    onClick(gridCoords);
   }
 
   edgeColor = (edgeSide) => {
@@ -34,20 +34,15 @@ class Hexagon extends PureComponent {
   render() {
     // console.log('RENDERED HEXAGON');
 
-    const { size, fill, x, y, topper } = this.props;
-    const isOffsetColumn = x % 2 !== 0;
+    const { size, fill, gridCoords, topper } = this.props;
+    const isOffsetColumn = gridCoords.x % 2 !== 0;
     const width = size * 2;
     const height = size / 0.57471264367;
 
-    const xPosition = x * width / 1.389995;
+    const xPosition = gridCoords.x * width / 1.389995;
     const yPosition = isOffsetColumn
-      ? y * height / 1.047275 + height / 2.09455
-      : y * height / 1.047275;
-
-    // const yPosition = y * height / 2.094415;
-    // const xPosition = isOffsetColumn
-    //   ? x * width * 1.43885 + width / 1.39
-    //   : x * width * 1.43885;
+      ? gridCoords.y * height / 1.047275 + height / 2.09455
+      : gridCoords.y * height / 1.047275;
 
     return (
       <HexagonContainer

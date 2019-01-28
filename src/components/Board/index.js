@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import withGridDataContext from '../../contexts/GridDataContext/withGridDataContext';
 import styled from 'styled-components';
 import Hexagon from './Hexagon';
-import { swapFullToppersToCubic, swapFullToppersToAxial, setBasicGridToppers } from '../../utils/hexMath/conversions';
+import { swapFullToppersToCubic, swapFullToppersToAxial, setBasicGridToppers, swapFullToppersWithNewOrigin } from '../../utils/hexMath/debugDisplayValues';
+import { getGridHexes } from '../../utils/hexMath/grid';
 
 
 const gridData = [
@@ -129,31 +130,24 @@ const gridData = [
   ],
 ];
 
-const logHexColor = (x, y) => console.log(`selected: ${gridData[y][x].color}`);
+// const logHexColor = (x, y) => console.log(`selected: ${gridData[y][x].color}`);
 const highlightedEdges = [];
 
-const buildGrid = (gridData, size) => {
-  return gridData.map((yArray, yCoord) => {
-    return yArray.map((hexData, xCoord) => {
-      return (
-        <React.Fragment key={`${yCoord}-${xCoord}`}>
-          <Hexagon
-            fill={hexData.color}
-            highlightedEdges={highlightedEdges}
-            size={size}
-            topper={hexData.topper}
-            x={xCoord}
-            y={yCoord}
-            onClick={logHexColor}
-          >
-            {hexData.topper}
-          </Hexagon>
-          {yArray.length === xCoord + 1 && <br />}
-        </React.Fragment>
-      );
-    });
-  });
-};
+const buildGrid = (gridData, hexSize, handleHexClick) => getGridHexes(gridData).map(hex => (
+  <React.Fragment key={`${hex.gridCoords.x}-${hex.gridCoords.y}`}>
+    <Hexagon
+      fill={hex.hexData.color}
+      gridCoords={hex.gridCoords}
+      highlightedEdges={highlightedEdges}
+      size={hexSize}
+      topper={hex.hexData.topper}
+      onClick={handleHexClick}
+    >
+      {hex.hexData.topper}
+    </Hexagon>
+    {hex.gridSize.xlength === hex.gridCoords.x + 1 && <br />}
+  </React.Fragment>
+));
 
 const BoardWrapper = styled.div`
   position: relative;
@@ -165,17 +159,25 @@ class Board extends Component {
     this.props.gridDataContext.setNewBoard(gridData);
   }
 
+  hexClicked = (gridCoords) => {
+    const { gridData, updateHexes } = this.props.gridDataContext;
+    swapFullToppersWithNewOrigin(gridData, updateHexes, gridCoords);
+  };
+
   render() {
     const { gridData, updateHexes } = this.props.gridDataContext;
-    const size = 60;
+    const hexSize = 60;
 
     return (
       <BoardWrapper>
         <button
           style={{position: 'absolute', top: '-20px', left: '-20px'}}
-          onClick={() => swapFullToppersToAxial(gridData, updateHexes)}
-        >Update!</button>
-        {buildGrid(gridData, size)}
+          onClick={() => swapFullToppersToCubic(gridData, updateHexes)}
+        >
+          Update!
+        </button>
+
+        {buildGrid(gridData, hexSize, this.hexClicked)}
       </BoardWrapper>
     );
   }
