@@ -23,6 +23,6 @@ export const setNeighborsToBrown = (getHex, updateHexes, gridCoords) => {
 
 export const rotateAllNeighbors = (anchorCoords) => {
   const anchorCubicCoords = setToCubic(anchorCoords);
-  console.log( rotateNeighbors(anchorCoords, false, 'T', 6, true) );
+  console.log( rotateNeighbors(anchorCoords) );
 
 };

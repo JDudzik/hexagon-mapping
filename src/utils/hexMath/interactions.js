@@ -73,16 +73,17 @@ export const getAllNeighbors = (coords, returnGrid = true) => {
 export const rotateNeighbors = (anchorCoords, returnGrid = true, initialNeighbor = 'T', rotationCount = 6, clockwise = true) => {
   const anchorCubicCoords = setToCubic(anchorCoords);
   const rotatedGridNeighbors = [];
-  let currentNeighborCoords = rotateCubic(neighborPositions[initialNeighbor]);
+  let currentNeighborCoords = rotateCubic(neighborPositions[initialNeighbor], clockwise);
   for (let i = 0; i < rotationCount; i++) {
     const neighborCoordsAsObject = {
       x: currentNeighborCoords[0],
       y: currentNeighborCoords[1],
       z: currentNeighborCoords[2],
     };
-    rotatedGridNeighbors.push(
-      setToGrid(calculateFromAnchor(anchorCubicCoords, neighborCoordsAsObject))
-    );
+    rotatedGridNeighbors.push({
+      // TODO: Add original coords for easier comparision
+      rotatedCoords: setToGrid(calculateFromAnchor(anchorCubicCoords, neighborCoordsAsObject)),
+    });
     currentNeighborCoords = rotateCubic(currentNeighborCoords, clockwise);
   }
   if (!returnGrid) {
