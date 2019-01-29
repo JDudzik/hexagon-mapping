@@ -26,7 +26,9 @@ class GridDataContextProvider extends Component {
     const gridData = [...this.state.gridData];
     hexValues.forEach(newHex => {
       const {gridCoords, hexData} = newHex;
-      gridData[gridCoords.y][gridCoords.x] = hexData;
+      if (this.doesHexExists(gridCoords)) {
+        gridData[gridCoords.y][gridCoords.x] = hexData;
+      }
     });
 
     this.setState({
@@ -40,10 +42,23 @@ class GridDataContextProvider extends Component {
     });
   }
 
-  getHex = (gridCoords) => ({
-    gridCoords: {x: gridCoords.x, y: gridCoords.y},
-    hexData: this.state.gridData[gridCoords.y][gridCoords.x],
-  })
+  getHex = (gridCoords) => {
+    if (!this.doesHexExists(gridCoords)) {
+      return false;
+    }
+    return {
+      gridCoords: {x: gridCoords.x, y: gridCoords.y},
+      hexData: this.state.gridData[gridCoords.y][gridCoords.x],
+    };
+  }
+
+  doesHexExists = (gridCoords) => {
+    if (!gridCoords) { return false; }
+    const { gridData } = this.state;
+    const { x, y } = gridCoords;
+    if (!!gridData[y] && !!gridData[y][x]) { return true; }
+    return false;
+  }
 
 
   /*******************/

@@ -1,5 +1,5 @@
 import { gridToCubic, gridToAxial, axialToGrid, cubicToGrid } from './conversions';
-import { getCubicFromCubicAnchor, neighborsT } from './interactions';
+import { getCubicFromCubicAnchor, getNeighbor, getAllNeighbors } from './interactions';
 import { getGridHexes } from './grid';
 
 export const swapFullToppersToCubic = (gridData, updateHexes) => {
@@ -28,48 +28,11 @@ export const swapFullToppersWithNewOrigin = (gridData, updateHexes, anchorGridCo
 };
 
 export const setNeighborsToBrown = (getHex, updateHexes, gridCoords) => {
-  const topNeighborCoords = neighborsT(gridCoords, true);
-  const topNeighbor = getHex(cubicToGrid(topNeighborCoords));
-  topNeighbor.hexData.color = 'brown';
-  updateHexes([{...topNeighbor}]);
+  const allNeighbors = getAllNeighbors(gridCoords)
+    .map(neighborCoords => {
+      const neighborHex = getHex(neighborCoords);
+      if (!!neighborHex) { neighborHex.hexData.color = 'brown'; }
+      return neighborHex;
+    });
+  updateHexes([...allNeighbors]);
 };
-
-// export const swapFullToppersToAxial = (gridData, updateHexes) => {
-//   const newHexes = [];
-//
-//   gridData.forEach((yArray, yIndex) => {
-//     yArray.forEach((hexData, xIndex) => {
-//       const axialCoords = gridToAxial(xIndex, yIndex);
-//       const gridCoords = axialToGrid(axialCoords.x, axialCoords.y);
-//       hexData.topper = `
-//         [${gridCoords.x},  ${gridCoords.y}] - - - - -
-//         [${axialCoords.x}, ${axialCoords.y}]
-//       `;
-//       newHexes.push({
-//         x: xIndex,
-//         y: yIndex,
-//         hexData: hexData,
-//       });
-//     });
-//   });
-//
-//   updateHexes(newHexes);
-// };
-
-
-// export const setBasicGridToppers = (gridData, updateHexes) => {
-//   const newHexes = [];
-//
-//   gridData.forEach((yArray, yIndex) => {
-//     yArray.forEach((hexData, xIndex) => {
-//       hexData.topper = `${xIndex}, ${yIndex}`;
-//       newHexes.push({
-//         x: xIndex,
-//         y: yIndex,
-//         hexData: hexData,
-//       });
-//     });
-//   });
-//
-//   updateHexes(newHexes);
-// };
