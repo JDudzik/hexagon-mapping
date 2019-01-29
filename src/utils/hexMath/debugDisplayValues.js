@@ -1,26 +1,10 @@
-import { gridToCubic, gridToAxial, axialToGrid, cubicToGrid } from './conversions';
-import { getCubicFromCubicAnchor, getNeighbor, getAllNeighbors } from './interactions';
+import { gridToCubic, setToCubic } from './conversions';
+import { getCubicFromAnchor, getNeighbor, getAllNeighbors, rotateNeighbors } from './interactions';
 import { getGridHexes } from './grid';
 
-export const swapFullToppersToCubic = (gridData, updateHexes) => {
-  const newHexes = [];
-  gridData.forEach((yArray, yIndex) => {
-    yArray.forEach((hexData, xIndex) => {
-      const cubicCoords = gridToCubic({x: xIndex, y: yIndex});
-      hexData.topper = `${cubicCoords.x}, ${cubicCoords.y}, ${cubicCoords.z}`;
-      newHexes.push({
-        gridCoords: {x: xIndex, y: yIndex},
-        hexData: hexData,
-      });
-    });
-  });
-  updateHexes(newHexes);
-};
-
-export const swapFullToppersWithNewOrigin = (gridData, updateHexes, anchorGridCoords) => {
-  const anchorCubicCoords = gridToCubic(anchorGridCoords);
+export const showCubicWithNewOrigin = (gridData, updateHexes, anchorGridCoords) => {
   const newHexes = getGridHexes(gridData, (gridCoords, hexData) => {
-    const anchoredCubicCoords = getCubicFromCubicAnchor(anchorCubicCoords, gridCoords);
+    const anchoredCubicCoords = getCubicFromAnchor(anchorGridCoords, gridCoords, false);
     hexData.topper = `${anchoredCubicCoords.x}, ${anchoredCubicCoords.y}, ${anchoredCubicCoords.z}`;
     return hexData;
   });
@@ -35,4 +19,10 @@ export const setNeighborsToBrown = (getHex, updateHexes, gridCoords) => {
       return neighborHex;
     });
   updateHexes([...allNeighbors]);
+};
+
+export const rotateAllNeighbors = (anchorCoords) => {
+  const anchorCubicCoords = setToCubic(anchorCoords);
+  console.log( rotateNeighbors(anchorCoords, false, 'T', 6, true) );
+
 };

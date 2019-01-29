@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import withGridDataContext from '../../contexts/GridDataContext/withGridDataContext';
 import styled from 'styled-components';
 import Hexagon from './Hexagon';
-import { swapFullToppersToCubic, swapFullToppersWithNewOrigin, setNeighborsToBrown } from '../../utils/hexMath/debugDisplayValues';
+import { showCubicWithNewOrigin, setNeighborsToBrown, rotateAllNeighbors } from '../../utils/hexMath/debugDisplayValues';
 import { getGridHexes } from '../../utils/hexMath/grid';
 
 
@@ -160,8 +160,19 @@ class Board extends Component {
 
   hexClicked = (gridCoords) => {
     const { gridData, updateHexes, getHex } = this.props.gridDataContext;
-    setNeighborsToBrown(getHex, updateHexes, gridCoords);
+    rotateAllNeighbors(gridCoords);
+    // showCubicWithNewOrigin(gridData, updateHexes, gridCoords);
+    // setNeighborsToBrown(getHex, updateHexes, gridCoords);
   };
+
+  functionClicked = () => {
+    const { gridData, updateHexes } = this.props.gridDataContext;
+    showCubicWithNewOrigin(gridData, updateHexes, {x:2, y:2});
+    updateHexes([{
+      gridCoords: {x:2, y:2},
+      hexData: {color: 'teal', topper: '0, 0, 0'},
+    }]);
+  }
 
   render() {
     const { gridData, updateHexes } = this.props.gridDataContext;
@@ -171,9 +182,9 @@ class Board extends Component {
       <BoardWrapper>
         <button
           style={{position: 'absolute', top: '-20px', left: '-20px'}}
-          onClick={() => swapFullToppersToCubic(gridData, updateHexes)}
+          onClick={this.functionClicked}
         >
-          Update!
+          Function
         </button>
 
         {buildGrid(gridData, hexSize, this.hexClicked)}

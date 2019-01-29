@@ -14,3 +14,16 @@ export const cubicToGrid = (cubicCoords) => axialToGrid(cubicCoords); // This me
 
 export const isGridCoords = coords => !coords.z;
 export const isCubicCoords = coords => !!coords.z;
+
+export const setToGrid = coords => {
+  if (isGridCoords(coords)) {
+    return coords;
+  }
+  return cubicToGrid(coords);
+};
+export const setToCubic = coords => {
+  if (isCubicCoords(coords)) {
+    return coords;
+  }
+  return gridToCubic(coords);
+};
