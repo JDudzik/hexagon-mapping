@@ -1,10 +1,10 @@
 import { gridToCubic, setToCubic } from './conversions';
-import { getCubicFromAnchor, getNeighbor, getAllNeighbors, rotateNeighbors } from './interactions';
+import { getCubicByAnchor, getNeighbor, getAllNeighbors, rotateNeighbors } from './interactions';
 import { getGridHexes } from './grid';
 
 export const showCubicWithNewOrigin = (gridData, updateHexes, anchorGridCoords) => {
   const newHexes = getGridHexes(gridData, (gridCoords, hexData) => {
-    const anchoredCubicCoords = getCubicFromAnchor(anchorGridCoords, gridCoords, false);
+    const anchoredCubicCoords = getCubicByAnchor(anchorGridCoords, gridCoords, false);
     hexData.topper = `${anchoredCubicCoords.x}, ${anchoredCubicCoords.y}, ${anchoredCubicCoords.z}`;
     return hexData;
   });
@@ -21,8 +21,12 @@ export const setNeighborsToBrown = (getHex, updateHexes, gridCoords) => {
   updateHexes([...allNeighbors]);
 };
 
-export const rotateAllNeighbors = (anchorCoords) => {
-  const anchorCubicCoords = setToCubic(anchorCoords);
-  console.log( rotateNeighbors(anchorCoords) );
-
+export const rotateAllNeighbors = (anchorCoords, getHex, updateHexes, clockwise = true) => {
+  const rotatedGridCoords = rotateNeighbors(anchorCoords, clockwise, 'T', 6);
+  // console.log(rotatedGridCoords);
+  const rotatedHexData = rotatedGridCoords.map(coords => ({
+    gridCoords: coords.initialCoords,
+    hexData: getHex(coords.rotatedCoords).hexData,
+  }));
+  updateHexes(rotatedHexData.filter(hex => !!hex.hexData));
 };

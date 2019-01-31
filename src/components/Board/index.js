@@ -160,9 +160,9 @@ class Board extends Component {
 
   hexClicked = (gridCoords) => {
     const { gridData, updateHexes, getHex } = this.props.gridDataContext;
-    rotateAllNeighbors(gridCoords);
-    // showCubicWithNewOrigin(gridData, updateHexes, gridCoords);
+    rotateAllNeighbors(gridCoords, getHex, updateHexes);
     // setNeighborsToBrown(getHex, updateHexes, gridCoords);
+    // showCubicWithNewOrigin(gridData, updateHexes, gridCoords);
   };
 
   functionClicked = () => {
