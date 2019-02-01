@@ -1,4 +1,5 @@
-import { gridToCubic, gridToAxial, axialToGrid, cubicToGrid, setToCubic, setToGrid } from './conversions';
+import { setToCubic, setToGrid, getReturnableCoords } from '../conversions';
+import { cubicArrayToObject } from '../cubicCalculations';
 
 /*******************/
 /* Private Methods */
@@ -31,12 +32,6 @@ const calculateFromAnchor = (anchorCubicCoords, cubicCoords) => ({
   z: cubicCoords.z + anchorCubicCoords.z,
 });
 
-const cubicArrayToObject = (cubicArray) => ({
-  x: cubicArray[0],
-  y: cubicArray[1],
-  z: cubicArray[2],
-});
-
 const rotateCubic = (cubicCoords, clockwise = true) => {
   let coordValues = Object.values(cubicCoords).map(coord => coord * -1);
   if (clockwise) {
@@ -49,27 +44,32 @@ const rotateCubic = (cubicCoords, clockwise = true) => {
 };
 
 
+
+
 /******************/
 /* Public Methods */
 /******************/
 
-export const getCubicByAnchor = (anchorCoords, coords, returnGrid = true) => {
+export const getDiagonalDistance = (p0, p1) => Math.max(Math.abs(p0.x - p1.x), Math.abs(p0.y - p1.y), Math.abs(p0.z - p1.z));
+
+export const getCubicByAnchor = (anchorCoords, coords) => {
   const anchorCubicCoords = setToCubic(anchorCoords);
   const cubicCoords = setToCubic(coords);
   const newCubicCoords = calculateToAnchor(anchorCubicCoords, cubicCoords);
-  if (returnGrid) {
-    return setToGrid(newCubicCoords);
-  }
   return setToCubic(newCubicCoords);
+};
+
+export const getCoordsFromAnchor = (anchorCoords, coords) => {
+  const anchorCubicCoords = setToCubic(anchorCoords);
+  const cubicCoords = setToCubic(coords);
+  const newCubicCoords = calculateFromAnchor(anchorCubicCoords, cubicCoords);
+  return setToGrid(newCubicCoords);
 };
 
 export const getNeighbor = (coords, neighborPosition, returnGrid = true) => {
   const cubicCoords = setToCubic(coords);
   const neighborCubic = calculateNeighbor(cubicCoords, neighborPositions[neighborPosition]);
-  if (returnGrid) {
-    return setToGrid(neighborCubic);
-  }
-  return setToCubic(neighborCubic);
+  return getReturnableCoords(neighborCubic, returnGrid);
 };
 
 export const getAllNeighbors = (coords, returnGrid = true) => {
@@ -81,7 +81,7 @@ export const rotateNeighbors = (anchorCoords, clockwise = true, initialNeighbor 
   const rotatedGridNeighbors = [];
   let previousNeighborCoords = neighborPositions[initialNeighbor];
   let currentNeighborCoords = rotateCubic(neighborPositions[initialNeighbor], clockwise);
-  
+
   for (let i = 0; i < rotationCount; i++) {
     rotatedGridNeighbors.push({
       initialCoords: setToGrid(calculateFromAnchor(anchorCubicCoords, cubicArrayToObject(previousNeighborCoords))),

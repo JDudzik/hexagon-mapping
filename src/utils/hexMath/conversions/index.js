@@ -27,3 +27,10 @@ export const setToCubic = coords => {
   }
   return gridToCubic(coords);
 };
+export const getReturnableCoords = (coords, returnGrid) => {
+  if (returnGrid) {
+    return setToGrid(coords);
+  } else {
+    return setToCubic(coords);
+  }
+};

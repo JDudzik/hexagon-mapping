@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import withGridDataContext from '../../contexts/GridDataContext/withGridDataContext';
 import styled from 'styled-components';
 import Hexagon from './Hexagon';
-import { showCubicWithNewOrigin, setNeighborsToBrown, rotateAllNeighbors, interpolating } from '../../utils/hexMath/debugDisplayValues';
-import { getGridHexes } from '../../utils/hexMath/grid';
+import { showCubicWithNewOrigin, setNeighborsToBrown, rotateAllNeighbors, visuallyDrawLerpLine } from '../../utils/hexMath/debugDisplayValues';
+import { getGridHexes } from '../../utils/hexMath/helpers';
 
 
 const gridData = [
@@ -163,11 +163,14 @@ class Board extends Component {
     // rotateAllNeighbors(gridCoords, getHex, updateHexes);
     // setNeighborsToBrown(getHex, updateHexes, gridCoords);
     // showCubicWithNewOrigin(gridData, updateHexes, gridCoords);
-    interpolating(
-      {x: 0, y: 0, z: 0},
-      gridCoords,
-      updateHexes,
-    );
+    visuallyDrawLerpLine({x: 0, y: 0, z: 0}, gridCoords, updateHexes);
+
+
+    // interpolating(
+    //   {x: 0, y: 0, z: 0},
+    //   gridCoords,
+    //   updateHexes,
+    // );
   };
 
   functionClicked = () => {
