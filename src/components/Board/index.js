@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import withGridDataContext from '../../contexts/GridDataContext/withGridDataContext';
 import styled from 'styled-components';
 import Hexagon from './Hexagon';
-import { showCubicWithNewOrigin, setNeighborsToBrown, rotateAllNeighbors } from '../../utils/hexMath/debugDisplayValues';
+import { showCubicWithNewOrigin, setNeighborsToBrown, rotateAllNeighbors, interpolating } from '../../utils/hexMath/debugDisplayValues';
 import { getGridHexes } from '../../utils/hexMath/grid';
 
 
@@ -160,9 +160,14 @@ class Board extends Component {
 
   hexClicked = (gridCoords) => {
     const { gridData, updateHexes, getHex } = this.props.gridDataContext;
-    rotateAllNeighbors(gridCoords, getHex, updateHexes);
+    // rotateAllNeighbors(gridCoords, getHex, updateHexes);
     // setNeighborsToBrown(getHex, updateHexes, gridCoords);
     // showCubicWithNewOrigin(gridData, updateHexes, gridCoords);
+    interpolating(
+      {x: 0, y: 0, z: 0},
+      gridCoords,
+      updateHexes,
+    );
   };
 
   functionClicked = () => {
@@ -176,7 +181,7 @@ class Board extends Component {
 
   render() {
     const { gridData, updateHexes } = this.props.gridDataContext;
-    const hexSize = 60;
+    const hexSize = 40;
 
     return (
       <BoardWrapper>
