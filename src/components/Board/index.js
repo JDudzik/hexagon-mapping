@@ -3,10 +3,10 @@ import withGridDataContext from '../../contexts/GridDataContext/withGridDataCont
 import styled from 'styled-components';
 import Hexagon from './Hexagon';
 import { showCubicWithNewOrigin, setNeighborsToBrown, rotateAllNeighbors, visuallyDrawLerpLine } from '../../utils/hexMath/debugDisplayValues';
-import { getGridHexes } from '../../utils/hexMath/helpers';
+import { getGridHexes, deepClone } from '../../utils/hexMath/helpers';
 
 
-const gridData = [
+const initialGridData = [
   [
     {color: 'red', topper: 'Even'},
     {color: 'red', topper: 'Odd'},
@@ -154,26 +154,27 @@ const BoardWrapper = styled.div`
 
 
 class Board extends Component {
-  componentDidMount() {
-    this.props.gridDataContext.setNewBoard(gridData);
+  _resetBoard = async () => {
+    const clonedHexes = deepClone(initialGridData);
+    // const clonedHexes = initialGridData.map(xArray => xArray.map(hex => ({...hex})));
+    await this.props.gridDataContext.setNewBoard(clonedHexes);
   }
 
-  hexClicked = (gridCoords) => {
+  componentDidMount() {
+    this._resetBoard();
+  }
+
+  hexClicked = async (gridCoords) => {
     const { gridData, updateHexes, getHex } = this.props.gridDataContext;
+    await this._resetBoard();
+
     // rotateAllNeighbors(gridCoords, getHex, updateHexes);
     // setNeighborsToBrown(getHex, updateHexes, gridCoords);
     // showCubicWithNewOrigin(gridData, updateHexes, gridCoords);
     visuallyDrawLerpLine({x: 0, y: 0, z: 0}, gridCoords, updateHexes);
-
-
-    // interpolating(
-    //   {x: 0, y: 0, z: 0},
-    //   gridCoords,
-    //   updateHexes,
-    // );
   };
 
-  functionClicked = () => {
+  functionClicked = async () => {
     const { gridData, updateHexes } = this.props.gridDataContext;
     showCubicWithNewOrigin(gridData, updateHexes, {x:2, y:2});
     updateHexes([{

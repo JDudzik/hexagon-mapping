@@ -23,22 +23,23 @@ class GridDataContextProvider extends Component {
     //   gridCoords: {x: 1, y: 2},
     //   hexData: {color: 'red', topper: 'Example'},
     // }]
-    const gridData = [...this.state.gridData];
+    const updatedGridData = this.state.gridData;
+
     hexValues.forEach(newHex => {
       const {gridCoords, hexData} = newHex;
       if (this.doesHexExists(gridCoords)) {
-        gridData[gridCoords.y][gridCoords.x] = hexData;
+        updatedGridData[gridCoords.y][gridCoords.x] = hexData;
       }
     });
 
     this.setState({
-      gridData,
+      updatedGridData,
     });
   }
 
-  setNewBoard = (gridData) => {
+  setNewBoard = (updatedGridData) => {
     this.setState({
-      gridData,
+      gridData: updatedGridData,
     });
   }
 
