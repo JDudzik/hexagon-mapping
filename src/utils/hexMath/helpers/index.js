@@ -20,3 +20,17 @@ export const getGridHexes = (gridData, modifyHexCallback) => {
   });
   return hexes;
 };
+
+export const deepClone = data => {
+  if (Array.isArray(data)) {
+    return data.map(innerData => deepClone(innerData));
+  }
+
+  if (data instanceof Object) {
+    const newObj = {};
+    Object.keys(data).forEach(propKey => newObj[propKey] = deepClone(data[propKey]));
+    return newObj;
+  }
+
+  return data;
+};
