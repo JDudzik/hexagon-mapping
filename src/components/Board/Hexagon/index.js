@@ -22,6 +22,11 @@ class Hexagon extends PureComponent {
     onClick(gridCoords);
   }
 
+  handleHover = () => {
+    const { onHover, gridCoords } = this.props;
+    onHover(gridCoords);
+  }
+
   edgeColor = (edgeSide) => {
     const defaultColor = '#000';
     const highlightedColor = '#fff';
@@ -67,6 +72,7 @@ class Hexagon extends PureComponent {
                 stroke="null"
                 style={{pointerEvents: 'all'}}
                 onClick={this.handleClick}
+                onMouseEnter={this.handleHover}
               />
             </g>
             <line loc="t  " stroke={this.edgeColor('T')}  strokeWidth="7" x1="151.95" x2="47.99" y1="0" y2="0"/>
