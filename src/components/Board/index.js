@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Hexagon from './Hexagon';
 import { showCubicWithNewOrigin, setNeighborsToBrown, rotateAllNeighbors, visuallyDrawLerpLine } from '../../utils/hexMath/debugDisplayValues';
 import { setToCubic } from '../../utils/hexMath/conversions';
-import { getGridHexes, deepClone } from '../../utils/hexMath/helpers';
+import { getGridHexes } from '../../utils/hexMath/helpers';
 
 
 const initialGridData = [
@@ -134,20 +134,17 @@ const initialGridData = [
 const highlightedEdges = [];
 
 const buildGrid = (gridData, hexSize, handleHexClick, handleHexHover) => getGridHexes(gridData).map(hex => (
-  <React.Fragment key={`${hex.gridCoords.x}-${hex.gridCoords.y}`}>
-    <Hexagon
-      fill={hex.hexData.color}
-      gridCoords={hex.gridCoords}
-      highlightedEdges={highlightedEdges}
-      size={hexSize}
-      topper={hex.hexData.topper}
-      onClick={handleHexClick}
-      onHover={handleHexHover}
-    >
-      {hex.hexData.topper}
-    </Hexagon>
-    {hex.gridSize.xlength === hex.gridCoords.x + 1 && <br />}
-  </React.Fragment>
+  <Hexagon
+    fill={hex.hexData.color}
+    gridCoords={hex.gridCoords}
+    highlightedEdges={highlightedEdges}
+    size={hexSize}
+    topper={hex.hexData.topper}
+    onClick={handleHexClick}
+    onHover={handleHexHover}
+  >
+    {hex.hexData.topper}
+  </Hexagon>
 ));
 
 const BoardWrapper = styled.div`
@@ -162,8 +159,7 @@ class Board extends Component {
   }
 
   _resetBoard = async () => {
-    const clonedHexes = deepClone(initialGridData);
-    await this.props.gridDataContext.setNewBoard(clonedHexes);
+    await this.props.gridDataContext.setNewBoard(initialGridData);
   }
 
   componentDidMount() {
@@ -178,7 +174,7 @@ class Board extends Component {
       const {selectedCubicCoords} = this.state;
 
       // rotateAllNeighbors(selectedCubicCoords, getHex, updateHexes);
-      setNeighborsToBrown(getHex, updateHexes, selectedCubicCoords);
+      // setNeighborsToBrown(getHex, updateHexes, selectedCubicCoords);
       // showCubicWithNewOrigin(gridData, updateHexes, selectedCubicCoords);
       // visuallyDrawLerpLine({x: 0, y: 0, z: 0}, selectedCubicCoords, updateHexes);
     });

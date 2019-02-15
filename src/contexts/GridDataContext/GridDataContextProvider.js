@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import GridDataContext from './index';
 // import browserStorage from 'store';
 
+// Utils
+import { setToGrid } from '../../utils/hexMath/conversions';
+import { deepClone } from '../../utils/hexMath/helpers';
 
 class GridDataContextProvider extends Component {
   state = {
@@ -25,7 +28,7 @@ class GridDataContextProvider extends Component {
     // }]
     const updatedGridData = this.state.gridData;
 
-    hexValues.forEach(newHex => {
+    deepClone(hexValues).forEach(newHex => {
       const {gridCoords, hexData} = newHex;
       if (this.doesHexExists(gridCoords)) {
         updatedGridData[gridCoords.y][gridCoords.x] = hexData;
@@ -33,30 +36,33 @@ class GridDataContextProvider extends Component {
     });
 
     this.setState({
-      updatedGridData,
-    });
-  }
-
-  setNewBoard = (updatedGridData) => {
-    this.setState({
       gridData: updatedGridData,
     });
   }
 
-  getHex = (gridCoords) => {
+  setNewBoard = (newGridData) => {
+    this.setState({
+      gridData: deepClone(newGridData),
+    });
+  }
+
+  getHex = (coords) => {
+    const gridCoords = setToGrid(coords);
     if (!this.doesHexExists(gridCoords)) {
       return false;
     }
+
+    const clonedHexData = deepClone(this.state.gridData[gridCoords.y][gridCoords.x]);
     return {
       gridCoords: {x: gridCoords.x, y: gridCoords.y},
-      hexData: this.state.gridData[gridCoords.y][gridCoords.x],
+      hexData: clonedHexData,
     };
   }
 
-  doesHexExists = (gridCoords) => {
-    if (!gridCoords) { return false; }
+  doesHexExists = (coords) => {
+    if (!coords) { return false; }
     const { gridData } = this.state;
-    const { x, y } = gridCoords;
+    const { x, y } = setToGrid(coords);
     if (!!gridData[y] && !!gridData[y][x]) { return true; }
     return false;
   }

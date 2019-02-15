@@ -6,7 +6,7 @@ import { getGridHexes } from '../helpers';
 export const showCubicWithNewOrigin = (gridData, updateHexes, anchorGridCoords) => {
   const newHexes = getGridHexes(gridData, (gridCoords, hexData) => {
     const anchoredCubicCoords = getCubicByAnchor(anchorGridCoords, gridCoords);
-    const unanchoredGridCoords = getCoordsFromAnchor(anchorGridCoords, anchoredCubicCoords);
+    // const unanchoredGridCoords = getCoordsFromAnchor(anchorGridCoords, anchoredCubicCoords);
     hexData.topper = `${anchoredCubicCoords.x}, ${anchoredCubicCoords.y}, ${anchoredCubicCoords.z}`;
     return hexData;
   });

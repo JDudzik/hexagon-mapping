@@ -1,6 +1,9 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
-// import verboseShallowCompare from '../../utils/verboseShallowCompare';
+import deepEqual from 'fast-deep-equal';
+
+// Utils
+// import verboseShallowCompare from '../../../utils/verboseShallowCompare';
 
 const HexagonContainer = styled.div`
   position: absolute;
@@ -16,7 +19,7 @@ const TopperWrapper = styled.div`
   left: 25%;
 `;
 
-class Hexagon extends PureComponent {
+class Hexagon extends Component {
   handleClick = () => {
     const { onClick, gridCoords } = this.props;
     onClick(gridCoords);
@@ -34,6 +37,10 @@ class Hexagon extends PureComponent {
 
     if (!highlightedEdges) { return defaultColor; }
     return highlightedEdges.includes(edgeSide) ? highlightedColor : defaultColor;
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return !deepEqual(this.props, nextProps);
   }
 
   render() {
