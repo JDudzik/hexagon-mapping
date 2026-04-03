@@ -1,17 +1,17 @@
 import { setToCubic, setToGrid, getReturnableCoords } from '../conversions';
 import { cubicArrayToObject } from '../cubicCalculations';
 
-/*******************/
+/** *****************/
 /* Private Methods */
-/*******************/
+/** *****************/
 
 const neighborPositions = {
-  'T':  [0, -1, 1],
-  'TR': [1, -1, 0],
-  'BR': [1, 0, -1],
-  'B':  [0, 1, -1],
-  'BL': [-1, 1, 0],
-  'TL': [-1, 0, 1],
+  'T':  [ 0, -1, 1 ],
+  'TR': [ 1, -1, 0 ],
+  'BR': [ 1, 0, -1 ],
+  'B':  [ 0, 1, -1 ],
+  'BL': [ -1, 1, 0 ],
+  'TL': [ -1, 0, 1 ],
 };
 
 const calculateNeighbor = (cubicCoords, coordModifiers) => ({
@@ -33,7 +33,7 @@ const calculateFromAnchor = (anchorCubicCoords, cubicCoords) => ({
 });
 
 const rotateCubic = (cubicCoords, clockwise = true) => {
-  let coordValues = Object.values(cubicCoords).map(coord => coord * -1);
+  const coordValues = Object.values(cubicCoords).map(coord => coord * -1);
   if (clockwise) {
     coordValues.unshift(coordValues.pop());
   }
@@ -44,9 +44,9 @@ const rotateCubic = (cubicCoords, clockwise = true) => {
 };
 
 
-/******************/
+/** ****************/
 /* Public Methods */
-/******************/
+/** ****************/
 
 export const getDiagonalDistance = (p0, p1) => Math.max(Math.abs(p0.x - p1.x), Math.abs(p0.y - p1.y), Math.abs(p0.z - p1.z));
 

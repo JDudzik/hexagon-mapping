@@ -3,9 +3,10 @@ import detectWebpSupport from '../../utils/detectWebpSupport';
 import styled from 'styled-components';
 
 const BackgroundImage = styled.div`
-  background-image: url(${p => p.src});
+  background-image: url(${ p => p.src });
 `;
 
+// eslint-disable-next-line react/require-optimization
 export default class WebpImage extends React.Component {
   constructor(props) {
     super(props);
@@ -18,8 +19,7 @@ export default class WebpImage extends React.Component {
   async setSupported() {
     if (await detectWebpSupport()) {
       this.setImageSrc(true);
-    }
-    else {
+    } else {
       this.setImageSrc(false);
     }
   }
@@ -28,25 +28,25 @@ export default class WebpImage extends React.Component {
     const { src, fallback } = this.props;
     const imagePath = supportsWebp ? src : fallback;
 
-    // eslint-disable-next-line no-restricted-globals
-    const imageSource = await import(`../../assets/images/${imagePath}`);
+     
+    const imageSource = await import(`../../assets/images/${ imagePath }`);
 
-    this.setState({imageSource: imageSource.default});
+    this.setState({ imageSource: imageSource.default });
   }
 
   render() {
     const { imageSource } = this.state;
-    const { src, fallback, alt, renderAsImg, ...remainingProps} = this.props;
+    const { src, fallback, alt, renderAsImg, ...remainingProps } = this.props;
     if (imageSource === undefined) {
       this.setSupported();
       return null;
     }
 
     if (renderAsImg) {
-      return <img alt={alt || null} src={imageSource} {...remainingProps} />;
+      return <img alt={ alt || null } src={ imageSource } { ...remainingProps } />;
     }
 
-    return <BackgroundImage src={imageSource} {...remainingProps} />;
+    return <BackgroundImage src={ imageSource } { ...remainingProps } />;
   }
 }
 

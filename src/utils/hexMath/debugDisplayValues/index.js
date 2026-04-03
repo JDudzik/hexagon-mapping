@@ -1,5 +1,5 @@
-import { gridToCubic, setToCubic, setToGrid } from '../conversions';
-import { getCubicByAnchor, getCoordsFromAnchor, getNeighbor, getAllNeighbors, rotateNeighbors } from '../interactions';
+import { setToGrid } from '../conversions';
+import { getCubicByAnchor, getAllNeighbors, rotateNeighbors } from '../interactions';
 import { interpolatedHexes } from '../lerp';
 import { getGridHexes } from '../helpers';
 
@@ -7,7 +7,7 @@ export const showCubicWithNewOrigin = (gridData, updateHexes, anchorGridCoords) 
   const newHexes = getGridHexes(gridData, (gridCoords, hexData) => {
     const anchoredCubicCoords = getCubicByAnchor(anchorGridCoords, gridCoords);
     // const unanchoredGridCoords = getCoordsFromAnchor(anchorGridCoords, anchoredCubicCoords);
-    hexData.topper = `${anchoredCubicCoords.x}, ${anchoredCubicCoords.y}, ${anchoredCubicCoords.z}`;
+    hexData.topper = `${ anchoredCubicCoords.x }, ${ anchoredCubicCoords.y }, ${ anchoredCubicCoords.z }`;
     return hexData;
   });
   updateHexes(newHexes);
@@ -15,12 +15,12 @@ export const showCubicWithNewOrigin = (gridData, updateHexes, anchorGridCoords) 
 
 export const setNeighborsToBrown = (getHex, updateHexes, gridCoords) => {
   const allNeighbors = getAllNeighbors(gridCoords)
-    .map(neighborCoords => {
+    .map((neighborCoords) => {
       const neighborHex = getHex(neighborCoords);
-      if (!!neighborHex) { neighborHex.hexData.color = 'brown'; }
+      if (neighborHex) { neighborHex.hexData.color = 'brown'; }
       return neighborHex;
     });
-  updateHexes([...allNeighbors]);
+  updateHexes([ ...allNeighbors ]);
 };
 
 export const rotateAllNeighbors = (anchorCoords, getHex, updateHexes, clockwise = true) => {
@@ -38,6 +38,6 @@ export const visuallyDrawLerpLine = (p0, p1, updateHexes) => {
 
   updateHexes(lerpedHexes.map((coords, index) => ({
     gridCoords: setToGrid(coords),
-    hexData: {color: 'tan', topper: index},
+    hexData: { color: 'tan', topper: index },
   })));
 };

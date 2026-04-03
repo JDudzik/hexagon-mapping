@@ -6,6 +6,7 @@ import GridDataContext from './index';
 import { setToGrid } from '../../utils/hexMath/conversions';
 import { deepClone } from '../../utils/hexMath/helpers';
 
+// eslint-disable-next-line react/require-optimization
 class GridDataContextProvider extends Component {
   state = {
     gridData: [],
@@ -16,9 +17,9 @@ class GridDataContextProvider extends Component {
   //   if (storedInBrowser) { this.setState(storedInBrowser); }
   // }
 
-  /*****************************/
+  /** ***************************/
   /* Make available to context */
-  /*****************************/
+  /** ***************************/
 
   updateHexes = (hexValues) => {
     // Example hexValues:
@@ -26,10 +27,12 @@ class GridDataContextProvider extends Component {
     //   gridCoords: {x: 1, y: 2},
     //   hexData: {color: 'red', topper: 'Example'},
     // }]
+    
+    // eslint-disable-next-line react/no-access-state-in-setstate
     const updatedGridData = this.state.gridData;
 
-    deepClone(hexValues).forEach(newHex => {
-      const {gridCoords, hexData} = newHex;
+    deepClone(hexValues).forEach((newHex) => {
+      const { gridCoords, hexData } = newHex;
       if (this.doesHexExists(gridCoords)) {
         updatedGridData[gridCoords.y][gridCoords.x] = hexData;
       }
@@ -54,7 +57,7 @@ class GridDataContextProvider extends Component {
 
     const clonedHexData = deepClone(this.state.gridData[gridCoords.y][gridCoords.x]);
     return {
-      gridCoords: {x: gridCoords.x, y: gridCoords.y},
+      gridCoords: { x: gridCoords.x, y: gridCoords.y },
       hexData: clonedHexData,
     };
   };
@@ -68,9 +71,9 @@ class GridDataContextProvider extends Component {
   };
 
 
-  /*******************/
+  /** *****************/
   /* Private helpers */
-  /*******************/
+  /** *****************/
 
   // setStateAndStorage = (newState, callback) => {
   //   this.setState(newState, () => {
@@ -80,13 +83,13 @@ class GridDataContextProvider extends Component {
   // }
 
 
-  /**********/
+  /** ********/
   /* Render */
-  /**********/
+  /** ********/
 
   render() {
-    let { children } = this.props;
-    let { gridData } = this.state;
+    const { children } = this.props;
+    const { gridData } = this.state;
 
     return (
       <div>
@@ -95,7 +98,8 @@ class GridDataContextProvider extends Component {
           updateHexes: this.updateHexes,
           setNewBoard: this.setNewBoard,
           getHex: this.getHex,
-        }}>
+        }}
+        >
           {children}
         </GridDataContext.Provider>
       </div>

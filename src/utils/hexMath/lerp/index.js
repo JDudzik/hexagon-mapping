@@ -5,9 +5,9 @@ import { getDiagonalDistance } from '../interactions';
 import { cubicRound } from '../cubicCalculations';
 
 export const lerpPoints = (p0, p1, t) => ({
-  x: p0.x + t * (p1.x - p0.x),
-  y: p0.y + t * (p1.y - p0.y),
-  z: p0.z + t * (p1.z - p0.z),
+  x: p0.x + (t * (p1.x - p0.x)),
+  y: p0.y + (t * (p1.y - p0.y)),
+  z: p0.z + (t * (p1.z - p0.z)),
 });
 
 export const interpolatedHexes = (p0, p1) => {

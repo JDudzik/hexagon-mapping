@@ -9,125 +9,125 @@ import { getGridHexes } from '../../utils/hexMath/helpers';
 
 const initialGridData = [
   [
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
   ], [
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
   ], [
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
   ], [
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
   ], [
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
   ], [
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
   ], [
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
   ], [
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
   ], [
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
   ], [
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
   ], [
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
-    {color: 'grey'},
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
+    { color: 'grey' },
   ], [
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
-    {color: 'darkgrey'},
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
+    { color: 'darkgrey' },
   ],
 ];
 
@@ -135,13 +135,14 @@ const highlightedEdges = [];
 
 const buildGrid = (gridData, hexSize, handleHexClick, handleHexHover) => getGridHexes(gridData).map(hex => (
   <Hexagon
-    fill={hex.hexData.color}
-    gridCoords={hex.gridCoords}
-    highlightedEdges={highlightedEdges}
-    size={hexSize}
-    topper={hex.hexData.topper}
-    onClick={handleHexClick}
-    onHover={handleHexHover}
+    key={ `${ hex.gridCoords.x },${ hex.gridCoords.y }` }
+    fill={ hex.hexData.color }
+    gridCoords={ hex.gridCoords }
+    highlightedEdges={ highlightedEdges }
+    size={ hexSize }
+    topper={ hex.hexData.topper }
+    onClick={ handleHexClick }
+    onHover={ handleHexHover }
   >
     {hex.hexData.topper}
   </Hexagon>
@@ -154,8 +155,9 @@ const BoardWrapper = styled.div`
 
 class Board extends Component {
   state = {
-    selectedCubicCoords: {x:0, y:0, z:0},
+    selectedCubicCoords: { x: 0, y: 0, z: 0 },
     hoveredCubicCoords: undefined,
+    selectedInteractionMode: 'drawLine',
   };
 
   _resetBoard = async () => {
@@ -166,12 +168,14 @@ class Board extends Component {
     this._resetBoard();
   }
 
+  shouldComponentUpdate() { return true; } // Explicitly always update the board.
+
   hexClicked = async (gridCoords) => {
     const { gridData, updateHexes, getHex } = this.props.gridDataContext;
     await this._resetBoard();
 
-    this.setState({selectedCubicCoords: setToCubic(gridCoords)}, () => {
-      const {selectedCubicCoords} = this.state;
+    this.setState({ selectedCubicCoords: setToCubic(gridCoords) }, () => {
+      const { selectedCubicCoords } = this.state;
 
       // rotateAllNeighbors(selectedCubicCoords, getHex, updateHexes);
       // setNeighborsToBrown(getHex, updateHexes, selectedCubicCoords);
@@ -184,8 +188,8 @@ class Board extends Component {
     const { gridData, updateHexes, getHex } = this.props.gridDataContext;
     await this._resetBoard();
 
-    this.setState({hoveredCubicCoords: setToCubic(gridCoords)}, () => {
-      const { selectedCubicCoords, hoveredCubicCoords} = this.state;
+    this.setState({ hoveredCubicCoords: setToCubic(gridCoords) }, () => {
+      const { selectedCubicCoords, hoveredCubicCoords } = this.state;
 
       // rotateAllNeighbors(hoveredCubicCoords, getHex, updateHexes);
       // setNeighborsToBrown(getHex, updateHexes, hoveredCubicCoords);
@@ -196,10 +200,10 @@ class Board extends Component {
 
   functionClicked = async () => {
     const { gridData, updateHexes } = this.props.gridDataContext;
-    showCubicWithNewOrigin(gridData, updateHexes, {x:2, y:2});
+    showCubicWithNewOrigin(gridData, updateHexes, { x: 2, y: 2 });
     updateHexes([{
-      gridCoords: {x:2, y:2},
-      hexData: {color: 'teal', topper: '0, 0, 0'},
+      gridCoords: { x: 2, y: 2 },
+      hexData: { color: 'teal', topper: '0, 0, 0' },
     }]);
   };
 
@@ -210,8 +214,10 @@ class Board extends Component {
     return (
       <BoardWrapper>
         <button
-          style={{position: 'absolute', top: '-20px', left: '-20px'}}
-          onClick={this.functionClicked}
+          type="button"
+          // eslint-disable-next-line react/forbid-dom-props
+          style={{ position: 'absolute', top: '-20px', left: '-20px' }}
+          onClick={ this.functionClicked }
         >
           Function
         </button>

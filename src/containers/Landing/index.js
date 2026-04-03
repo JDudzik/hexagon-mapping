@@ -10,6 +10,7 @@ const LandingWrapper = styled.div`
 `;
 
 
+// eslint-disable-next-line react/prefer-stateless-function, react/require-optimization
 class Landing extends Component {
   render() {
     return (

@@ -12,7 +12,7 @@ const root = createRoot(container);
 root.render(
   <UserContextProvider>
     <App />
-  </UserContextProvider>
+  </UserContextProvider>,
 );
 
 

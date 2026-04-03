@@ -1,7 +1,7 @@
 import React from 'react';
 import GridDataContext from './index';
 
-export default function (WrappedComponent) {
+export default (WrappedComponent) => {
   function withGridDataContext(props) {
     return (
       <GridDataContext.Consumer>
@@ -17,7 +17,7 @@ export default function (WrappedComponent) {
   withGridDataContext.displayName = `withGridDataContext(${ getDisplayName(WrappedComponent) })`;
 
   return withGridDataContext;
-}
+};
 
 
 function getDisplayName(WrappedComponent) {

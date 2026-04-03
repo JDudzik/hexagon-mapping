@@ -2,17 +2,17 @@ export const getGridHexes = (gridData, modifyHexCallback) => {
   const hexes = [];
   gridData.forEach((xArray, yIndex) => {
     xArray.forEach((hexData, xIndex) => {
-      let newHex = hexData;
+      const newHex = hexData;
       if (modifyHexCallback) {
         hexes.push({
-          gridSize: {yLength: gridData.length, xLength: xArray.length},
-          gridCoords: {x: xIndex, y: yIndex},
-          hexData: modifyHexCallback({x: xIndex, y: yIndex}, hexData),
+          gridSize: { yLength: gridData.length, xLength: xArray.length },
+          gridCoords: { x: xIndex, y: yIndex },
+          hexData: modifyHexCallback({ x: xIndex, y: yIndex }, hexData),
         });
       } else {
         hexes.push({
-          gridSize: {yLength: gridData.length, xLength: xArray.length},
-          gridCoords: {x: xIndex, y: yIndex},
+          gridSize: { yLength: gridData.length, xLength: xArray.length },
+          gridCoords: { x: xIndex, y: yIndex },
           hexData: newHex,
         });
       }
@@ -21,7 +21,7 @@ export const getGridHexes = (gridData, modifyHexCallback) => {
   return hexes;
 };
 
-export const deepClone = data => {
+export const deepClone = (data) => {
   if (Array.isArray(data)) {
     return data.map(innerData => deepClone(innerData));
   }
