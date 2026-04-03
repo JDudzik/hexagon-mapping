@@ -5,11 +5,7 @@ import {
   Routes,
   Navigate,
 } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
 import Loadable from 'react-loadable';
-
- 
-const theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!../../assets/stylesheets/style.scss');
 
 
 const LoadingComponent = () => (<div>Loading...</div>);
@@ -22,15 +18,13 @@ const Landing = Loadable({
 const App = () => {
   return (
     <Router>
-      <ThemeProvider theme={ theme }>
-        <Routes>
-          <Route element={ <Landing /> } path="/" />
-          <Route element={ <Navigate replace to="/" /> } path="*" />
+      <Routes>
+        <Route element={ <Landing /> } path="/" />
+        <Route element={ <Navigate replace to="/" /> } path="*" />
 
-          {/* TODO: Replace the following route with a 404 page down-the-road */}
-          {/* <Route component={<NotFound />} /> */}
-        </Routes>
-      </ThemeProvider>
+        {/* TODO: Replace the following route with a 404 page down-the-road */}
+        {/* <Route component={<NotFound />} /> */}
+      </Routes>
     </Router>
   );
 };
