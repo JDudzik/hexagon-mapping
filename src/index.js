@@ -1,16 +1,18 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import './assets/stylesheets/style.scss';
 import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
 import UserContextProvider from './contexts/GridDataContext/GridDataContextProvider';
 
 
-ReactDOM.render(
+const container = document.getElementById('root');
+const root = createRoot(container);
+
+root.render(
   <UserContextProvider>
     <App />
-  </UserContextProvider>,
-  document.getElementById('root')
+  </UserContextProvider>
 );
 
 

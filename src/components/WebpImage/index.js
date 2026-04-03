@@ -1,11 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import detectWebpSupport from '../../utils/detectWebpSupport';
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const BackgroundImage = styled.div`
   background-image: url(${p => p.src});
-`
+`;
 
 export default class WebpImage extends React.Component {
   constructor(props) {
@@ -44,17 +43,10 @@ export default class WebpImage extends React.Component {
     }
 
     if (renderAsImg) {
-      return <img src={imageSource} alt={alt || null} {...remainingProps} />
+      return <img alt={alt || null} src={imageSource} {...remainingProps} />;
     }
 
-    return <BackgroundImage src={imageSource} {...remainingProps} />
+    return <BackgroundImage src={imageSource} {...remainingProps} />;
   }
 }
 
-WebpImage.propTypes = {
-  className: PropTypes.string,
-  src: PropTypes.string.isRequired,
-  fallback: PropTypes.string.isRequired,
-  alt: PropTypes.string,
-  renderAsImg: PropTypes.bool,
-}

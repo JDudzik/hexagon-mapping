@@ -44,8 +44,6 @@ const rotateCubic = (cubicCoords, clockwise = true) => {
 };
 
 
-
-
 /******************/
 /* Public Methods */
 /******************/

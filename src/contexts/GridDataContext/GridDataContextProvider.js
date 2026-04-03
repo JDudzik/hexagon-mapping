@@ -9,7 +9,7 @@ import { deepClone } from '../../utils/hexMath/helpers';
 class GridDataContextProvider extends Component {
   state = {
     gridData: [],
-  }
+  };
 
   // async componentDidMount() {
   //   const storedInBrowser = browserStorage.get('gridDataContext');
@@ -38,13 +38,13 @@ class GridDataContextProvider extends Component {
     this.setState({
       gridData: updatedGridData,
     });
-  }
+  };
 
   setNewBoard = (newGridData) => {
     this.setState({
       gridData: deepClone(newGridData),
     });
-  }
+  };
 
   getHex = (coords) => {
     const gridCoords = setToGrid(coords);
@@ -57,7 +57,7 @@ class GridDataContextProvider extends Component {
       gridCoords: {x: gridCoords.x, y: gridCoords.y},
       hexData: clonedHexData,
     };
-  }
+  };
 
   doesHexExists = (coords) => {
     if (!coords) { return false; }
@@ -65,7 +65,7 @@ class GridDataContextProvider extends Component {
     const { x, y } = setToGrid(coords);
     if (!!gridData[y] && !!gridData[y][x]) { return true; }
     return false;
-  }
+  };
 
 
   /*******************/

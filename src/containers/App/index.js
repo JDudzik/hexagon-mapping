@@ -1,14 +1,14 @@
-import React from "react";
+import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Switch,
-  Redirect,
-} from "react-router-dom";
+  Routes,
+  Navigate,
+} from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import Loadable from 'react-loadable';
 
-// eslint-disable-next-line import/no-webpack-loader-syntax
+ 
 const theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!../../assets/stylesheets/style.scss');
 
 
@@ -19,21 +19,21 @@ const Landing = Loadable({
 });
 
 
-function App() {
+const App = () => {
   return (
     <Router>
-      <ThemeProvider theme={theme}>
-        <Switch>
-          <Route exact component={Landing} path="/" />
-          <Redirect from="/" to="/" />
+      <ThemeProvider theme={ theme }>
+        <Routes>
+          <Route element={ <Landing /> } path="/" />
+          <Route element={ <Navigate replace to="/" /> } path="*" />
 
           {/* TODO: Replace the following route with a 404 page down-the-road */}
           {/* <Route component={<NotFound />} /> */}
-        </Switch>
+        </Routes>
       </ThemeProvider>
     </Router>
   );
-}
+};
 
 
 export default App;

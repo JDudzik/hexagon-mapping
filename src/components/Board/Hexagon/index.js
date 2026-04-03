@@ -23,12 +23,12 @@ class Hexagon extends Component {
   handleClick = () => {
     const { onClick, gridCoords } = this.props;
     onClick(gridCoords);
-  }
+  };
 
   handleHover = () => {
     const { onHover, gridCoords } = this.props;
     onHover(gridCoords);
-  }
+  };
 
   edgeColor = (edgeSide) => {
     const defaultColor = '#000';
@@ -37,7 +37,7 @@ class Hexagon extends Component {
 
     if (!highlightedEdges) { return defaultColor; }
     return highlightedEdges.includes(edgeSide) ? highlightedColor : defaultColor;
-  }
+  };
 
   shouldComponentUpdate(nextProps) {
     return !deepEqual(this.props, nextProps);

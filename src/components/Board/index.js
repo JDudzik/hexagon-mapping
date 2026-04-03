@@ -156,11 +156,11 @@ class Board extends Component {
   state = {
     selectedCubicCoords: {x:0, y:0, z:0},
     hoveredCubicCoords: undefined,
-  }
+  };
 
   _resetBoard = async () => {
     await this.props.gridDataContext.setNewBoard(initialGridData);
-  }
+  };
 
   componentDidMount() {
     this._resetBoard();
@@ -192,7 +192,7 @@ class Board extends Component {
       // showCubicWithNewOrigin(gridData, updateHexes, hoveredCubicCoords);
       visuallyDrawLerpLine(selectedCubicCoords, hoveredCubicCoords, updateHexes);
     });
-  }
+  };
 
   functionClicked = async () => {
     const { gridData, updateHexes } = this.props.gridDataContext;
@@ -201,7 +201,7 @@ class Board extends Component {
       gridCoords: {x:2, y:2},
       hexData: {color: 'teal', topper: '0, 0, 0'},
     }]);
-  }
+  };
 
   render() {
     const { gridData, updateHexes } = this.props.gridDataContext;

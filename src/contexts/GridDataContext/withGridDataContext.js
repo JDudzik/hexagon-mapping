@@ -1,12 +1,12 @@
 import React from 'react';
 import GridDataContext from './index';
 
-export default function(WrappedComponent) {
+export default function (WrappedComponent) {
   function withGridDataContext(props) {
     return (
       <GridDataContext.Consumer>
         {
-          (context) => (
+          context => (
             <WrappedComponent { ...props } gridDataContext={{ ...context }} />
           )
         }
@@ -14,7 +14,7 @@ export default function(WrappedComponent) {
     );
   }
 
-  withGridDataContext.displayName = `withGridDataContext(${getDisplayName(WrappedComponent)})`;
+  withGridDataContext.displayName = `withGridDataContext(${ getDisplayName(WrappedComponent) })`;
 
   return withGridDataContext;
 }
