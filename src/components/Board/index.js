@@ -2,136 +2,66 @@ import React, { Component } from 'react';
 import withGridDataContext from '../../contexts/GridDataContext/withGridDataContext';
 import styled from 'styled-components';
 import Hexagon from './Hexagon';
-import { showCubicWithNewOrigin, setNeighborsToBrown, rotateAllNeighbors, visuallyDrawLerpLine } from '../../utils/hexMath/debugDisplayValues';
+import {
+  showCubicWithNewOrigin as displayCubicWithNewOrigin,
+  setNeighborsToBrown,
+  rotateAllNeighbors,
+  visuallyDrawLerpLine,
+} from '../../utils/hexMath/debugDisplayValues';
 import { setToCubic } from '../../utils/hexMath/conversions';
 import { getGridHexes } from '../../utils/hexMath/helpers';
 
 
-const initialGridData = [
-  [
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-  ], [
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-  ], [
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-  ], [
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-  ], [
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-  ], [
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-  ], [
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-  ], [
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-  ], [
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-  ], [
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-  ], [
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-    { color: 'grey' },
-  ], [
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-    { color: 'darkgrey' },
-  ],
-];
+const initialGridData = Array.from(
+  { length: 9 },
+  (_, rowIndex) => Array.from(
+    { length: 9 },
+    () => ({ color: rowIndex % 2 === 0 ? 'grey' : 'darkgrey' }),
+  ),
+);
 
 const highlightedEdges = [];
+
+const CONFIG_PROP_NAMES = [ 'interactionMode' ];
+
+const INTERACTION_MODE_MAP = {
+  LinearInterpolation: {
+    shouldReset: true,
+    interactions: {
+      hover: ({ selectedCubicCoords, targetCubicCoords, updateHexes }) => {
+        visuallyDrawLerpLine(selectedCubicCoords, targetCubicCoords, updateHexes);
+      },
+    },
+  },
+  rotateNeighbors: {
+    shouldReset: false,
+    interactions: {
+      click: ({ targetCubicCoords, getHex, updateHexes }) => {
+        rotateAllNeighbors(targetCubicCoords, getHex, updateHexes);
+      },
+    },
+  },
+  setNeighborsToBrown: {
+    shouldReset: false,
+    interactions: {
+      click: ({ targetCubicCoords, getHex, updateHexes }) => {
+        setNeighborsToBrown(getHex, updateHexes, targetCubicCoords);
+      },
+    },
+  },
+  showCubicWithNewOrigin: {
+    shouldReset: false,
+    interactions: {
+      click: ({ gridData, targetCubicCoords, updateHexes }) => {
+        displayCubicWithNewOrigin(gridData, updateHexes, targetCubicCoords);
+      },
+    },
+  },
+  none: {
+    shouldReset: false,
+    interactions: {},
+  },
+};
 
 const buildGrid = (gridData, hexSize, handleHexClick, handleHexHover) => getGridHexes(gridData).map(hex => (
   <Hexagon
@@ -150,6 +80,7 @@ const buildGrid = (gridData, hexSize, handleHexClick, handleHexHover) => getGrid
 
 const BoardWrapper = styled.div`
   position: relative;
+  user-select: none;
 `;
 
 
@@ -157,7 +88,11 @@ class Board extends Component {
   state = {
     selectedCubicCoords: { x: 0, y: 0, z: 0 },
     hoveredCubicCoords: undefined,
-    selectedInteractionMode: 'drawLine',
+  };
+
+  static defaultProps = {
+    interactionMode: 'LinearInterpolation',
+    resetBoardSignal: 0,
   };
 
   _resetBoard = async () => {
@@ -168,60 +103,82 @@ class Board extends Component {
     this._resetBoard();
   }
 
+  componentDidUpdate(prevProps) {
+    const didResetSignalChange = prevProps.resetBoardSignal !== this.props.resetBoardSignal;
+    const didAnyConfigChange = CONFIG_PROP_NAMES.some(
+      propName => prevProps[propName] !== this.props[propName],
+    );
+
+    if (didAnyConfigChange || didResetSignalChange) {
+      this._resetBoard();
+    }
+  }
+
   shouldComponentUpdate() { return true; } // Explicitly always update the board.
 
-  hexClicked = async (gridCoords) => {
+  _runConfiguredInteraction = async ({ interactionType, targetCubicCoords, selectedCubicCoords, hoveredCubicCoords }) => {
+    const { interactionMode } = this.props;
     const { gridData, updateHexes, getHex } = this.props.gridDataContext;
-    await this._resetBoard();
+    const modeConfig = INTERACTION_MODE_MAP[interactionMode] || INTERACTION_MODE_MAP.none;
+    const interactionHandler = modeConfig.interactions[interactionType];
 
-    this.setState({ selectedCubicCoords: setToCubic(gridCoords) }, () => {
+    if (!interactionHandler) {
+      return;
+    }
+
+    if (modeConfig.shouldReset) {
+      await this._resetBoard();
+    }
+
+    interactionHandler({
+      interactionType,
+      targetCubicCoords,
+      selectedCubicCoords,
+      hoveredCubicCoords,
+      gridData,
+      updateHexes,
+      getHex,
+    });
+  };
+
+  hexClicked = (gridCoords) => {
+    const nextSelected = setToCubic(gridCoords);
+    const { hoveredCubicCoords } = this.state;
+
+    this.setState({ selectedCubicCoords: nextSelected }, () => {
       const { selectedCubicCoords } = this.state;
 
-      // rotateAllNeighbors(selectedCubicCoords, getHex, updateHexes);
-      // setNeighborsToBrown(getHex, updateHexes, selectedCubicCoords);
-      // showCubicWithNewOrigin(gridData, updateHexes, selectedCubicCoords);
-      // visuallyDrawLerpLine({x: 0, y: 0, z: 0}, selectedCubicCoords, updateHexes);
+      this._runConfiguredInteraction({
+        interactionType: 'click',
+        targetCubicCoords: nextSelected,
+        selectedCubicCoords,
+        hoveredCubicCoords,
+      });
     });
   };
 
-  hexHovered = async (gridCoords) => {
-    const { gridData, updateHexes, getHex } = this.props.gridDataContext;
-    await this._resetBoard();
+  hexHovered = (gridCoords) => {
+    const nextHovered = setToCubic(gridCoords);
+    const { selectedCubicCoords } = this.state;
 
-    this.setState({ hoveredCubicCoords: setToCubic(gridCoords) }, () => {
-      const { selectedCubicCoords, hoveredCubicCoords } = this.state;
+    this.setState({ hoveredCubicCoords: nextHovered }, () => {
+      const { hoveredCubicCoords } = this.state;
 
-      // rotateAllNeighbors(hoveredCubicCoords, getHex, updateHexes);
-      // setNeighborsToBrown(getHex, updateHexes, hoveredCubicCoords);
-      // showCubicWithNewOrigin(gridData, updateHexes, hoveredCubicCoords);
-      visuallyDrawLerpLine(selectedCubicCoords, hoveredCubicCoords, updateHexes);
+      this._runConfiguredInteraction({
+        interactionType: 'hover',
+        targetCubicCoords: nextHovered,
+        selectedCubicCoords,
+        hoveredCubicCoords,
+      });
     });
-  };
-
-  functionClicked = async () => {
-    const { gridData, updateHexes } = this.props.gridDataContext;
-    showCubicWithNewOrigin(gridData, updateHexes, { x: 2, y: 2 });
-    updateHexes([{
-      gridCoords: { x: 2, y: 2 },
-      hexData: { color: 'teal', topper: '0, 0, 0' },
-    }]);
   };
 
   render() {
-    const { gridData, updateHexes } = this.props.gridDataContext;
+    const { gridData } = this.props.gridDataContext;
     const hexSize = 40;
 
     return (
       <BoardWrapper>
-        <button
-          type="button"
-          // eslint-disable-next-line react/forbid-dom-props
-          style={{ position: 'absolute', top: '-20px', left: '-20px' }}
-          onClick={ this.functionClicked }
-        >
-          Function
-        </button>
-
         {buildGrid(gridData, hexSize, this.hexClicked, this.hexHovered)}
       </BoardWrapper>
     );
